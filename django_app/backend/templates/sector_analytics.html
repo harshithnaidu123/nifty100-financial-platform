@@ -1,0 +1,406 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+body{
+
+    background:
+    linear-gradient(
+    rgba(4,10,20,.85),
+    rgba(4,10,20,.90)),
+    url('https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1800&q=80');
+
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+}
+
+/* HERO */
+
+.hero-card{
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(25px);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    border-radius:35px;
+
+    padding:50px;
+
+    margin-bottom:35px;
+
+    box-shadow:
+    0 15px 50px rgba(0,0,0,.35);
+}
+
+.hero-title{
+
+    font-size:64px;
+
+    font-weight:900;
+
+    line-height:1.1;
+
+    background:
+    linear-gradient(
+    135deg,
+    #ffffff,
+    #67e8f9,
+    #4ade80);
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+}
+
+.hero-subtitle{
+
+    color:#d1d5db;
+
+    font-size:22px;
+
+    margin-top:15px;
+}
+
+.hero-icon{
+
+    font-size:130px;
+
+    color:#38bdf8;
+}
+
+/* GLASS */
+
+.glass-card{
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(25px);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    border-radius:30px;
+
+    box-shadow:
+    0 15px 50px rgba(0,0,0,.35);
+}
+
+/* KPI */
+
+.kpi-card{
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    border-radius:25px;
+
+    padding:30px;
+
+    transition:.3s;
+
+    height:100%;
+}
+
+.kpi-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:
+    0 20px 45px rgba(0,212,255,.25);
+}
+
+.kpi-title{
+
+    color:#9ca3af;
+
+    font-size:18px;
+}
+
+.kpi-value{
+
+    color:white;
+
+    font-size:42px;
+
+    font-weight:800;
+}
+
+/* CHART */
+
+.chart-box{
+
+    background:rgba(255,255,255,.06);
+
+    border-radius:30px;
+
+    padding:30px;
+
+    border:1px solid rgba(255,255,255,.08);
+}
+
+/* INSIGHTS */
+
+.insight-box{
+
+    background:rgba(0,212,255,.10);
+
+    border-left:5px solid #00d4ff;
+
+    border-radius:18px;
+
+    padding:18px;
+
+    margin-bottom:18px;
+
+    color:white;
+}
+
+.section-title{
+
+    color:white;
+
+    font-size:30px;
+
+    font-weight:800;
+
+    margin-bottom:25px;
+}
+
+</style>
+
+<div class="container-fluid p-4">
+
+    <!-- HERO -->
+
+    <div class="hero-card">
+
+        <div class="row align-items-center">
+
+            <div class="col-lg-8">
+
+                <h1 class="hero-title">
+
+                    Sector Analytics
+                    Intelligence
+
+                </h1>
+
+                <p class="hero-subtitle">
+
+                    AI Powered Sector Distribution,
+                    Industry Intelligence,
+                    Market Leadership Analysis,
+                    Trend Detection and Executive Insights.
+
+                </p>
+
+            </div>
+
+            <div class="col-lg-4 text-end">
+
+                <i class="fas fa-chart-pie hero-icon"></i>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- KPI -->
+
+    <div class="row g-4 mb-4">
+
+        <div class="col-lg-3">
+
+            <div class="kpi-card">
+
+                <div class="kpi-title">
+    📊 Total Sectors
+</div>
+
+<div class="kpi-value">
+    {{ total_sectors }}
+</div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3">
+
+            <div class="kpi-card">
+
+                <div class="kpi-title">
+                    🚀 Growth Sector
+                </div>
+
+                <div class="kpi-value">
+    {{ top_sector }}
+</div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3">
+
+            <div class="kpi-card">
+
+<div class="kpi-title">
+    🏆 Market Leader
+</div>
+
+<div class="kpi-value">
+    {{ market_leader }}
+</div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3">
+
+            <div class="kpi-card">
+
+                <div class="kpi-title">
+    🤖 AI Confidence
+</div>
+
+<div class="kpi-value">
+    {{ ai_confidence }}
+</div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- MAIN DASHBOARD -->
+
+    <div class="row g-4">
+
+        <!-- CHART -->
+
+        <div class="col-lg-8">
+
+            <div class="glass-card p-4">
+
+                <h3 class="section-title">
+
+                    📈 Sector Distribution
+
+                </h3>
+
+                <div class="chart-box">
+
+                    {{ chart|safe }}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- INSIGHTS -->
+
+        <div class="col-lg-4">
+
+            <div class="glass-card p-4 h-100">
+
+                <h3 class="section-title">
+
+                    🤖 Executive Insights
+
+                </h3>
+
+              <div class="insight-box">
+
+    🚀 Highest Sector Exposure:
+    <b>{{ top_sector }}</b>
+
+</div>
+
+<div class="insight-box">
+
+    📊 Total Sectors Analysed:
+    <b>{{ total_sectors }}</b>
+
+</div>
+
+<div class="insight-box">
+
+    🏆 Market Leader:
+    <b>{{ market_leader }}</b>
+
+</div>
+
+<div class="insight-box">
+
+    🤖 AI Confidence:
+    <b>{{ ai_confidence }}</b>
+
+</div>
+
+            </div>
+
+        </div>
+
+        <div class="glass-card p-4 mt-4">
+
+    <h3 class="section-title">
+
+        🏆 Top 5 Sector Rankings
+
+    </h3>
+
+    <table class="table table-dark table-hover">
+
+        <thead>
+
+            <tr>
+
+                <th>Rank</th>
+
+                <th>Sector</th>
+
+                <th>Companies</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for sector, count in ranking_data %}
+
+            <tr>
+
+                <td>{{ forloop.counter }}</td>
+
+                <td>{{ sector }}</td>
+
+                <td>{{ count }}</td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,310 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+body{
+    background:linear-gradient(
+    135deg,
+    #081120,
+    #111827,
+    #0f172a);
+    color:white;
+}
+
+.hero-banner{
+    height:320px;
+    background:url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3');
+    background-size:cover;
+    background-position:center;
+    border-radius:25px;
+    overflow:hidden;
+    position:relative;
+    margin-bottom:30px;
+    border:2px solid rgba(255,255,255,.15);
+}
+
+.hero-overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.65);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:50px;
+}
+
+.hero-overlay h1{
+    color:#00f5ff;
+    font-size:3rem;
+    font-weight:800;
+    text-shadow:0 0 20px #00f5ff;
+}
+
+.glass-card{
+    background:rgba(255,255,255,.06);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:25px;
+    padding:30px;
+    margin-bottom:25px;
+    box-shadow:0 8px 32px rgba(0,0,0,.35);
+}
+
+.section-title{
+    color:#00f5ff;
+    border-bottom:2px solid rgba(0,245,255,.4);
+    padding-bottom:10px;
+    margin-bottom:20px;
+}
+
+.form-control{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.2);
+    color:white;
+    border-radius:15px;
+}
+
+.ai-btn{
+    background:linear-gradient(
+    135deg,
+    #00f5ff,
+    #0077ff);
+
+    border:none;
+    color:white;
+    font-weight:700;
+    border-radius:15px;
+    padding:12px 35px;
+    margin-top:20px;
+}
+
+.kpi-card{
+    text-align:center;
+    padding:25px;
+    border-radius:20px;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.1);
+}
+
+.kpi-value{
+    font-size:2rem;
+    font-weight:800;
+    color:#00f5ff;
+}
+
+.signal-good{
+    background:rgba(0,255,150,.08);
+    border-left:5px solid #00ff99;
+    padding:20px;
+    border-radius:15px;
+}
+
+.signal-risk{
+    background:rgba(255,80,80,.08);
+    border-left:5px solid #ff5b5b;
+    padding:20px;
+    border-radius:15px;
+}
+
+.summary-box{
+    background:rgba(255,255,255,.05);
+    border-radius:20px;
+    padding:25px;
+}
+
+</style>
+
+<div class="container-fluid mt-4">
+
+    <div class="hero-banner">
+
+        <div class="hero-overlay">
+
+            <h1>
+                🎙 AI Earnings Call Analyzer
+            </h1>
+
+            <p>
+                Analyze earnings call transcripts using AI.
+                Detect sentiment, growth opportunities,
+                management confidence and investment risks.
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="glass-card">
+
+        <h3 class="section-title">
+            📄 Upload / Paste Transcript
+        </h3>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <textarea
+                name="transcript"
+                rows="12"
+                class="form-control"
+                placeholder="Paste earnings call transcript here..."
+            ></textarea>
+
+            <button class="ai-btn">
+
+                🚀 Analyze Transcript
+
+            </button>
+
+        </form>
+
+    </div>
+
+    {% if result %}
+
+    <div class="row">
+
+        <div class="col-md-3">
+
+            <div class="kpi-card">
+
+                <h6>📈 Sentiment</h6>
+
+                <div class="kpi-value">
+                    {{ result.sentiment }}
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="kpi-card">
+
+                <h6>🚀 Growth</h6>
+
+                <div class="kpi-value">
+                    {{ result.growth }}
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="kpi-card">
+
+                <h6>⚠ Risk</h6>
+
+                <div class="kpi-value">
+                    {{ result.risk }}
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="kpi-card">
+
+                <h6>🎯 Confidence</h6>
+
+                <div class="kpi-value">
+                    {{ result.confidence }}%
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="glass-card mt-4">
+
+        <h3 class="section-title">
+            🤖 AI Executive Summary
+        </h3>
+
+        <div class="summary-box">
+
+            {{ result.summary }}
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-6">
+
+            <div class="signal-good">
+
+                <h4>
+                    ✅ Positive Signals
+                </h4>
+
+                <ul>
+
+                    <li>Revenue Growth Mentioned</li>
+                    <li>Margin Expansion</li>
+                    <li>Future Demand Outlook Positive</li>
+                    <li>Strong Management Confidence</li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="signal-risk">
+
+                <h4>
+                    ⚠ Risk Signals
+                </h4>
+
+                <ul>
+
+                    <li>Competition Pressure</li>
+                    <li>Global Slowdown Risk</li>
+                    <li>Raw Material Cost Concerns</li>
+                    <li>Market Volatility</li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="glass-card mt-4">
+
+        <h3 class="section-title">
+            🎯 AI Investment Takeaway
+        </h3>
+
+        <p>
+
+            Based on transcript sentiment,
+            management commentary,
+            growth signals and risk factors,
+            AI identifies the company's
+            future outlook and investor confidence.
+
+        </p>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

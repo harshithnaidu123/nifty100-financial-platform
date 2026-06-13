@@ -1,0 +1,903 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+body{
+background:linear-gradient(
+135deg,
+#07111f,
+#0f172a,
+#111827,
+#1e293b);
+
+min-height:100vh;
+}
+
+.dashboard-wrapper{
+padding:40px;
+}
+
+.executive-header{
+text-align:center;
+margin-bottom:50px;
+}
+
+.executive-header h1{
+font-size:55px;
+font-weight:800;
+color:white;
+margin-bottom:10px;
+}
+
+.executive-header p{
+font-size:20px;
+color:#cbd5e1;
+}
+
+.glass-card{
+background:rgba(255,255,255,0.07);
+backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,0.15);
+border-radius:24px;
+box-shadow:0 10px 30px rgba(0,0,0,.30);
+transition:.3s;
+overflow:hidden;
+}
+
+.glass-card:hover{
+transform:translateY(-6px);
+}
+
+.kpi-card{
+padding:30px;
+color:white;
+min-height:180px;
+}
+
+.kpi-title{
+font-size:15px;
+letter-spacing:1px;
+text-transform:uppercase;
+opacity:.8;
+}
+
+.kpi-value{
+font-size:52px;
+font-weight:800;
+margin-top:15px;
+}
+
+.kpi-icon{
+font-size:50px;
+float:right;
+opacity:.3;
+}
+
+.card-blue{
+background:linear-gradient(
+135deg,
+rgba(37,99,235,.8),
+rgba(59,130,246,.4));
+}
+
+.card-green{
+background:linear-gradient(
+135deg,
+rgba(16,185,129,.8),
+rgba(34,197,94,.4));
+}
+
+.card-purple{
+background:linear-gradient(
+135deg,
+rgba(147,51,234,.8),
+rgba(168,85,247,.4));
+}
+
+.card-orange{
+background:linear-gradient(
+135deg,
+rgba(249,115,22,.8),
+rgba(251,146,60,.4));
+}
+
+.section{
+margin-top:50px;
+}
+
+.section-title{
+font-size:30px;
+font-weight:700;
+color:white;
+margin-bottom:25px;
+padding-left:15px;
+border-left:5px solid #60a5fa;
+}
+
+.executive-panel{
+padding:35px;
+color:white;
+}
+
+.executive-panel p{
+color:#cbd5e1;
+line-height:1.8;
+}
+
+</style>
+
+<div class="container-fluid dashboard-wrapper">
+
+<div class="executive-header">
+
+<h1>
+📈 Executive Intelligence Dashboard
+</h1>
+
+<p>
+AI Powered NIFTY100 Financial Intelligence Platform
+</p>
+
+</div>
+
+<div class="row g-4">
+
+<div class="col-lg-3 col-md-6">
+<div class="glass-card card-blue">
+<div class="kpi-card">
+<div class="kpi-icon">🏢</div>
+<div class="kpi-title">Total Companies</div>
+<div class="kpi-value">100</div>
+</div>
+</div>
+</div>
+
+<div class="col-lg-3 col-md-6">
+<div class="glass-card card-green">
+<div class="kpi-card">
+<div class="kpi-icon">🤖</div>
+<div class="kpi-title">Average AI Score</div>
+<div class="kpi-value">87</div>
+</div>
+</div>
+</div>
+
+<div class="col-lg-3 col-md-6">
+<div class="glass-card card-purple">
+<div class="kpi-card">
+<div class="kpi-icon">🏆</div>
+<div class="kpi-title">Top Sector</div>
+<div class="kpi-value">IT</div>
+</div>
+</div>
+</div>
+
+<div class="col-lg-3 col-md-6">
+<div class="glass-card card-orange">
+<div class="kpi-card">
+<div class="kpi-icon">📊</div>
+<div class="kpi-title">Portfolio Return</div>
+<div class="kpi-value">18.5%</div>
+</div>
+</div>
+</div>
+
+</div>
+<!-- Executive Summary -->
+
+<div class="section">
+
+<h3 class="section-title">
+🚀 Executive Summary
+</h3>
+
+<div class="glass-card">
+
+<div class="executive-panel">
+
+<h2>
+AI Market Intelligence
+</h2>
+
+<hr>
+
+<p>
+Monitor NIFTY100 companies using AI-driven forecasting,
+company intelligence, sector analytics,
+portfolio optimization and executive insights.
+</p>
+
+<p>
+This dashboard provides leadership teams,
+investors and analysts with a unified
+view of market performance and strategic opportunities.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- Market Overview -->
+
+<div class="section">
+
+<h3 class="section-title">
+🌍 Market Overview
+</h3>
+
+<div class="row g-4">
+
+<div class="col-lg-3 col-md-6">
+
+<div class="glass-card card-blue">
+
+<div class="kpi-card">
+
+<h5>NIFTY 50</h5>
+
+<h2>
+25,430
+</h2>
+
+<p>
+▲ +1.24%
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-3 col-md-6">
+
+<div class="glass-card card-green">
+
+<div class="kpi-card">
+
+<h5>SENSEX</h5>
+
+<h2>
+83,250
+</h2>
+
+<p>
+▲ +0.98%
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-3 col-md-6">
+
+<div class="glass-card card-purple">
+
+<div class="kpi-card">
+
+<h5>Market Cap</h5>
+
+<h2>
+₹425T
+</h2>
+
+<p>
+Indian Equity Market
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-3 col-md-6">
+
+<div class="glass-card card-orange">
+
+<div class="kpi-card">
+
+<h5>Volatility</h5>
+
+<h2>
+12.4
+</h2>
+
+<p>
+Low Risk Environment
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="section">
+
+<h3 class="section-title">
+🏆 Top AI Ranked Companies
+</h3>
+
+<div class="glass-card">
+
+<div class="executive-panel">
+
+<div class="table-responsive">
+
+<table class="table table-dark table-hover align-middle">
+
+<thead>
+
+<tr>
+<th>Rank</th>
+<th>Company</th>
+<th>Sector</th>
+<th>AI Score</th>
+<th>Signal</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+<td><span class="badge bg-warning">#1</span></td>
+<td>TCS</td>
+<td>Information Technology</td>
+<td>98</td>
+<td><span class="badge bg-success">Strong Buy</span></td>
+</tr>
+
+<tr>
+<td><span class="badge bg-warning">#2</span></td>
+<td>Infosys</td>
+<td>Information Technology</td>
+<td>96</td>
+<td><span class="badge bg-success">Strong Buy</span></td>
+</tr>
+
+<tr>
+<td><span class="badge bg-warning">#3</span></td>
+<td>Reliance Industries</td>
+<td>Energy</td>
+<td>95</td>
+<td><span class="badge bg-success">Buy</span></td>
+</tr>
+
+<tr>
+<td>#4</td>
+<td>HDFC Bank</td>
+<td>Banking</td>
+<td>94</td>
+<td><span class="badge bg-success">Buy</span></td>
+</tr>
+
+<tr>
+<td>#5</td>
+<td>ICICI Bank</td>
+<td>Banking</td>
+<td>93</td>
+<td><span class="badge bg-success">Buy</span></td>
+</tr>
+
+<tr>
+<td>#6</td>
+<td>Wipro</td>
+<td>IT</td>
+<td>91</td>
+<td><span class="badge bg-warning text-dark">Hold</span></td>
+</tr>
+
+<tr>
+<td>#7</td>
+<td>LTIMindtree</td>
+<td>IT</td>
+<td>90</td>
+<td><span class="badge bg-warning text-dark">Hold</span></td>
+</tr>
+
+<tr>
+<td>#8</td>
+<td>Bajaj Finance</td>
+<td>Finance</td>
+<td>89</td>
+<td><span class="badge bg-warning text-dark">Hold</span></td>
+</tr>
+
+<tr>
+<td>#9</td>
+<td>Axis Bank</td>
+<td>Banking</td>
+<td>88</td>
+<td><span class="badge bg-warning text-dark">Hold</span></td>
+</tr>
+
+<tr>
+<td>#10</td>
+<td>HCL Technologies</td>
+<td>IT</td>
+<td>87</td>
+<td><span class="badge bg-warning text-dark">Hold</span></td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<style>
+
+.table{
+border-radius:20px;
+overflow:hidden;
+margin-top:10px;
+}
+
+.table thead{
+background:#2563eb;
+}
+
+.table th{
+padding:18px;
+font-size:15px;
+letter-spacing:.5px;
+}
+
+.table td{
+padding:18px;
+}
+
+.table-hover tbody tr:hover{
+background:rgba(255,255,255,.08);
+}
+
+</style>
+<!-- Executive Analytics -->
+
+<div class="section">
+
+<h3 class="section-title">
+📊 Executive Analytics
+</h3>
+
+<div class="row g-4">
+
+<!-- Portfolio Growth -->
+
+<div class="col-lg-6">
+
+<div class="glass-card">
+
+<div class="executive-panel">
+
+<h4>
+📈 Portfolio Performance
+</h4>
+
+<hr>
+
+<h1 style="font-size:60px;color:#22c55e;">
++18.5%
+</h1>
+
+<p>
+AI-selected portfolio continues to outperform
+benchmark market indices through intelligent
+stock selection and diversification.
+</p>
+
+<div class="progress mt-4" style="height:25px;">
+
+<div
+class="progress-bar bg-success"
+style="width:85%;">
+
+85%
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Sector Leaders -->
+
+<div class="col-lg-6">
+
+<div class="glass-card">
+
+<div class="executive-panel">
+
+<h4>
+🏭 Top Performing Sectors
+</h4>
+
+<hr>
+
+<div class="list-group">
+
+<div class="list-group-item">
+🥇 Information Technology
+</div>
+
+<div class="list-group-item">
+🥈 Banking & Finance
+</div>
+
+<div class="list-group-item">
+🥉 Energy
+</div>
+
+<div class="list-group-item">
+4️⃣ FMCG
+</div>
+
+<div class="list-group-item">
+5️⃣ Healthcare
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<style>
+
+.progress{
+background:rgba(255,255,255,.12);
+border-radius:20px;
+overflow:hidden;
+}
+
+.progress-bar{
+font-size:14px;
+font-weight:700;
+}
+
+.list-group-item{
+background:rgba(255,255,255,.08);
+border:1px solid rgba(255,255,255,.10);
+color:white;
+margin-bottom:10px;
+border-radius:12px;
+padding:14px;
+font-weight:600;
+}
+
+</style>
+<!-- AI Investment Signals -->
+
+<div class="section">
+
+<h3 class="section-title">
+🤖 AI Investment Signals
+</h3>
+
+<div class="row g-4">
+
+<div class="col-lg-4">
+
+<div class="glass-card card-green">
+
+<div class="kpi-card">
+
+<div class="kpi-icon">
+🟢
+</div>
+
+<div class="kpi-title">
+BUY SIGNALS
+</div>
+
+<div class="kpi-value">
+42
+</div>
+
+<p>
+High confidence growth opportunities
+identified by AI models.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="glass-card card-orange">
+
+<div class="kpi-card">
+
+<div class="kpi-icon">
+🟡
+</div>
+
+<div class="kpi-title">
+HOLD SIGNALS
+</div>
+
+<div class="kpi-value">
+36
+</div>
+
+<p>
+Stable companies with moderate
+future growth potential.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="glass-card card-purple">
+
+<div class="kpi-card">
+
+<div class="kpi-icon">
+🔴
+</div>
+
+<div class="kpi-title">
+SELL SIGNALS
+</div>
+
+<div class="kpi-value">
+22
+</div>
+
+<p>
+Companies showing weaker outlook
+based on AI analysis.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- Executive Insights -->
+
+<div class="section">
+
+<h3 class="section-title">
+💡 Executive Insights
+</h3>
+
+<div class="glass-card">
+
+<div class="executive-panel">
+
+<div class="row">
+
+<div class="col-md-6">
+
+<div class="glass-card p-4 mb-3">
+
+<h5>
+🚀 Growth Insight
+</h5>
+
+<p>
+Information Technology companies continue
+to lead revenue growth and profitability
+across NIFTY100 constituents.
+</p>
+
+</div>
+
+<div class="glass-card p-4">
+
+<h5>
+📈 Portfolio Outlook
+</h5>
+
+<p>
+Portfolio diversification has improved
+risk-adjusted returns significantly over
+the previous quarter.
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-6">
+
+<div class="glass-card p-4 mb-3">
+
+<h5>
+🏦 Banking Insight
+</h5>
+
+<p>
+Private sector banks remain strong due
+to healthy credit growth and improving
+asset quality metrics.
+</p>
+
+</div>
+
+<div class="glass-card p-4">
+
+<h5>
+⚡ Market Forecast
+</h5>
+
+<p>
+AI forecasts indicate positive momentum
+for the next quarter with moderate
+market volatility.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<!-- Footer -->
+
+<div class="section">
+
+<div class="glass-card">
+
+<div class="executive-panel text-center">
+
+<h2>
+🚀 NIFTY100 AI Financial Intelligence Platform
+</h2>
+
+<hr>
+
+<p>
+Revenue Forecasting • Sector Analytics • Company Intelligence
+</p>
+
+<p>
+Compare Companies • AI Portfolio Builder • Executive Dashboard
+</p>
+
+<p>
+Powered by Artificial Intelligence, Machine Learning
+and Advanced Financial Analytics
+</p>
+
+<div class="mt-4">
+
+<span class="badge bg-primary p-2">
+NIFTY100
+</span>
+
+<span class="badge bg-success p-2">
+AI Powered
+</span>
+
+<span class="badge bg-warning text-dark p-2">
+Executive Analytics
+</span>
+
+<span class="badge bg-danger p-2">
+Premium Dashboard
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<style>
+
+/* Premium Footer */
+
+.badge{
+font-size:14px;
+margin:4px;
+}
+
+/* Better Hover Effects */
+
+.glass-card{
+transition:.4s;
+}
+
+.glass-card:hover{
+transform:translateY(-8px);
+box-shadow:
+0 20px 40px rgba(0,0,0,.35);
+}
+
+/* Better Scrollbar */
+
+::-webkit-scrollbar{
+width:10px;
+}
+
+::-webkit-scrollbar-track{
+background:#0f172a;
+}
+
+::-webkit-scrollbar-thumb{
+background:#3b82f6;
+border-radius:20px;
+}
+
+/* Table Improvements */
+
+.table tbody tr{
+border-bottom:
+1px solid rgba(255,255,255,.08);
+}
+
+/* Better Mobile Spacing */
+
+@media(max-width:768px){
+
+.executive-header h1{
+font-size:36px;
+}
+
+.kpi-value{
+font-size:40px;
+}
+
+.section-title{
+font-size:24px;
+}
+
+}
+
+</style>
+
+</div>
+
+{% endblock %}

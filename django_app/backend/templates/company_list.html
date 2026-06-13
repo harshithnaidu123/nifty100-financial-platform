@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Companies</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#0f172a;
+color:white;
+padding:40px;
+}
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:40px;
+}
+
+.header h1{
+font-size:42px;
+}
+
+.search{
+
+width:350px;
+padding:14px;
+border:none;
+border-radius:10px;
+font-size:16px;
+}
+
+.company-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fill,minmax(300px,1fr));
+
+gap:25px;
+}
+
+.card{
+
+background:#1e293b;
+
+padding:25px;
+
+border-radius:20px;
+
+transition:.3s;
+}
+
+.card:hover{
+
+transform:translateY(-8px);
+
+box-shadow:0 0 20px rgba(0,255,157,.25);
+}
+
+.symbol{
+
+font-size:30px;
+font-weight:700;
+
+color:#00ff95;
+}
+
+.company{
+
+font-size:20px;
+
+margin-top:10px;
+}
+
+.btn{
+
+display:inline-block;
+
+margin-top:20px;
+
+padding:12px 25px;
+
+background:#00ff95;
+
+color:black;
+
+font-weight:600;
+
+text-decoration:none;
+
+border-radius:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h1>
+📈 Nifty100 Companies
+</h1>
+
+<input
+type="text"
+class="search"
+placeholder="Search Company..."
+id="searchInput">
+
+</div>
+
+<div class="company-grid" id="companyGrid">
+
+{% for company in companies %}
+
+<div class="card">
+
+<div class="symbol">
+
+{{ company.company_id }}
+
+</div>
+
+<div class="company">
+
+{{ company.company_name }}
+
+</div>
+
+<a href="/api/dashboard/{{ company.company_id }}/"
+   class="btn">
+   View Dashboard
+</a>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+<script>
+
+const searchInput =
+document.getElementById("searchInput");
+
+searchInput.addEventListener(
+"keyup",
+function(){
+
+let value =
+this.value.toLowerCase();
+
+let cards =
+document.querySelectorAll(".card");
+
+cards.forEach(card=>{
+
+let text =
+card.innerText.toLowerCase();
+
+card.style.display =
+text.includes(value)
+? "block"
+: "none";
+
+});
+
+});
+
+</script>
+
+</body>
+
+</html>

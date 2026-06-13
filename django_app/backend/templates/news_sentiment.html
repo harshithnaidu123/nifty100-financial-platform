@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+.news-hero{
+height:320px;
+border-radius:30px;
+overflow:hidden;
+position:relative;
+
+background:
+linear-gradient(
+rgba(0,0,0,.65),
+rgba(0,0,0,.75)),
+url("https://images.unsplash.com/photo-1504711434969-e33886168f5c");
+
+background-size:cover;
+background-position:center;
+
+margin-bottom:30px;
+}
+
+.news-content{
+position:absolute;
+top:50%;
+left:60px;
+transform:translateY(-50%);
+}
+
+.news-content h1{
+font-size:3.3rem;
+font-weight:800;
+color:#00d4ff;
+}
+
+.glass-panel{
+background:rgba(255,255,255,.06);
+backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,.12);
+border-radius:25px;
+padding:30px;
+margin-bottom:25px;
+}
+
+.news-btn{
+background:linear-gradient(
+135deg,
+#00d4ff,
+#2563eb);
+
+border:none;
+padding:12px 35px;
+border-radius:15px;
+color:white;
+font-weight:700;
+margin-top:20px;
+}
+
+.kpi-card{
+height:180px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background:rgba(255,255,255,.05);
+border-radius:25px;
+}
+
+.kpi-value{
+font-size:2.8rem;
+font-weight:800;
+color:#00d4ff;
+}
+
+</style>
+
+<div class="news-hero">
+
+<div class="news-content">
+
+<h1>
+📰 AI News Sentiment Intelligence
+</h1>
+
+<p>
+Analyze market news and detect
+investment opportunities using AI.
+</p>
+
+</div>
+
+</div>
+
+<div class="glass-panel">
+
+<form method="POST">
+
+{% csrf_token %}
+
+<textarea
+name="news"
+rows="8"
+class="form-control"
+placeholder="Paste financial news here..."></textarea>
+
+<button class="news-btn">
+
+Analyze News
+
+</button>
+
+</form>
+
+</div>
+
+{% if result %}
+
+<div class="row">
+
+<div class="col-lg-3">
+
+<div class="kpi-card">
+
+<div>Positive</div>
+
+<div class="kpi-value">
+
+{{ result.positive }}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-3">
+
+<div class="kpi-card">
+
+<div>Negative</div>
+
+<div class="kpi-value">
+
+{{ result.negative }}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-3">
+
+<div class="kpi-card">
+
+<div>Sentiment</div>
+
+<div class="kpi-value">
+
+{{ result.sentiment }}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-3">
+
+<div class="kpi-card">
+
+<div>Signal</div>
+
+<div class="kpi-value">
+
+{{ result.signal }}
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="glass-panel mt-4">
+
+<h3>
+🤖 AI Summary
+</h3>
+
+<p>
+{{ result.summary }}
+</p>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

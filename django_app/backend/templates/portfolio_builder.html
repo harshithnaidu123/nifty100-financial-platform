@@ -1,0 +1,267 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+body{
+background:
+linear-gradient(rgba(5,15,35,.90),rgba(5,15,35,.92)),
+url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3');
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+}
+
+.glass-card{
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,.15);
+border-radius:25px;
+box-shadow:0 8px 35px rgba(0,0,0,.35);
+}
+
+.hero{
+padding:45px;
+margin-bottom:30px;
+}
+
+.hero-title{
+font-size:64px;
+font-weight:900;
+background:linear-gradient(90deg,#fff,#7dd3fc,#4ade80);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.hero-sub{
+color:#cbd5e1;
+font-size:20px;
+}
+
+.deep-btn{
+background:linear-gradient(135deg,#00d4ff,#2563eb);
+border:none;
+border-radius:15px;
+padding:15px;
+font-weight:700;
+color:white;
+width:100%;
+}
+
+.form-select{
+background:rgba(255,255,255,.08);
+color:white;
+border:1px solid rgba(255,255,255,.2);
+border-radius:15px;
+padding:15px;
+}
+
+.form-select option{
+color:black;
+}
+
+.kpi-card{
+padding:25px;
+text-align:center;
+}
+
+.kpi-title{
+color:#9fb3d4;
+}
+
+.kpi-value{
+font-size:34px;
+font-weight:800;
+color:white;
+}
+
+.table{
+color:white;
+}
+
+.section-title{
+color:white;
+font-weight:800;
+margin-bottom:20px;
+}
+
+</style>
+
+<div class="container-fluid p-4">
+
+<div class="glass-card hero">
+
+<h1 class="hero-title">
+AI Portfolio Builder
+</h1>
+
+<p class="hero-sub">
+Generate AI-powered portfolios based on your risk profile.
+</p>
+
+</div>
+
+<div class="glass-card p-4 mb-4">
+
+<form method="GET">
+
+<div class="row g-3">
+
+<div class="col-md-8">
+
+<select
+name="risk"
+class="form-select">
+
+<option>
+Conservative
+</option>
+
+<option>
+Moderate
+</option>
+
+<option>
+Aggressive
+</option>
+
+</select>
+
+</div>
+
+<div class="col-md-4">
+
+<button
+type="submit"
+class="deep-btn">
+
+🚀 Build Portfolio
+
+</button>
+
+</div>
+
+</div>
+
+</form>
+
+</div>
+
+{% if portfolio %}
+
+<div class="row g-4 mb-4">
+
+<div class="col-md-3">
+
+<div class="glass-card kpi-card">
+
+<div class="kpi-title">
+Risk Level
+</div>
+
+<div class="kpi-value">
+{{ risk }}
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="glass-card kpi-card">
+
+<div class="kpi-title">
+Portfolio Stocks
+</div>
+
+<div class="kpi-value">
+{{ portfolio|length }}
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="glass-card kpi-card">
+
+<div class="kpi-title">
+Expected Return
+</div>
+
+<div class="kpi-value">
+18%
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="glass-card kpi-card">
+
+<div class="kpi-title">
+AI Confidence
+</div>
+
+<div class="kpi-value">
+94%
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="glass-card p-4">
+
+<h3 class="section-title">
+
+📊 Portfolio Allocation
+
+</h3>
+
+<table class="table">
+
+<thead>
+
+<tr>
+
+<th>Company</th>
+
+<th>Allocation %</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for stock, allocation in portfolio %}
+
+<tr>
+
+<td>{{ stock }}</td>
+
+<td>{{ allocation }}%</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+{% endif %}
+
+</div>
+
+{% endblock %}

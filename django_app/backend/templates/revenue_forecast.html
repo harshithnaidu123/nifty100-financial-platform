@@ -1,0 +1,552 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+body{
+    background:
+    linear-gradient(
+    rgba(4,12,24,.92),
+    rgba(4,12,24,.92)
+    ),
+    url('https://images.unsplash.com/photo-1642543492481-44e81e3914a7?auto=format&fit=crop&w=2000&q=80');
+
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+    min-height:100vh;
+}
+
+/* GLOW EFFECTS */
+
+body::before{
+    content:"";
+    position:fixed;
+    width:500px;
+    height:500px;
+    background:#00d4ff;
+    border-radius:50%;
+    filter:blur(180px);
+    opacity:.15;
+    top:-150px;
+    left:-150px;
+    z-index:-1;
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    width:500px;
+    height:500px;
+    background:#4ade80;
+    border-radius:50%;
+    filter:blur(180px);
+    opacity:.12;
+    bottom:-150px;
+    right:-150px;
+    z-index:-1;
+}
+
+/* HERO */
+
+.forecast-hero{
+    padding:60px;
+    border-radius:35px;
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(30px);
+    border:1px solid rgba(255,255,255,.15);
+    box-shadow:0 20px 60px rgba(0,0,0,.35);
+    margin-bottom:35px;
+}
+
+.forecast-title{
+    font-size:72px;
+    font-weight:900;
+    line-height:1.05;
+
+    background:linear-gradient(
+    90deg,
+    #ffffff,
+    #00d4ff,
+    #4ade80);
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.forecast-subtitle{
+    color:#c7d4e5;
+    font-size:20px;
+    margin-top:15px;
+}
+
+/* GLASS CARD */
+
+.glass-card{
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(25px);
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:30px;
+    box-shadow:0 15px 50px rgba(0,0,0,.35);
+    transition:.4s;
+}
+
+.glass-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 20px 60px rgba(0,212,255,.25);
+}
+
+/* KPI */
+
+.kpi-card{
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(25px);
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:28px;
+    padding:20px;
+    height:100%;
+    transition:.4s;
+}
+
+.kpi-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 20px 60px rgba(0,212,255,.25);
+}
+
+.kpi-title{
+    color:#9fb3d4;
+    font-size:16px;
+    margin-bottom:10px;
+}
+
+.kpi-value{
+    color:white;
+    font-size:32px;
+    font-weight:800;
+}
+
+/* FORECAST PANEL */
+
+.forecast-panel{
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(25px);
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:30px;
+    padding:35px;
+    margin-top:25px;
+}
+
+/* BUTTON */
+
+.forecast-btn{
+    height:70px;
+    width:100%;
+
+    background:linear-gradient(
+    135deg,
+    #00d4ff,
+    #2563eb);
+
+    border:none;
+    border-radius:18px;
+
+    color:white;
+
+    font-size:18px;
+    font-weight:700;
+
+    transition:.3s;
+}
+
+.forecast-btn:hover{
+    transform:scale(1.03);
+    box-shadow:0 12px 40px rgba(37,99,235,.45);
+}
+
+/* SELECT */
+
+.form-select{
+    background:rgba(255,255,255,.08);
+    color:white;
+    border:1px solid rgba(255,255,255,.20);
+    border-radius:18px;
+    padding:16px;
+}
+
+.form-select option{
+    color:black;
+}
+
+/* CHART */
+
+.chart-container{
+    margin-top:25px;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:25px;
+    padding:25px;
+}
+
+/* SECTION TITLE */
+
+.section-heading{
+    color:white;
+    font-size:34px;
+    font-weight:800;
+    margin-bottom:25px;
+}
+
+/* EXECUTIVE INSIGHT */
+
+.insight-box{
+    background:rgba(0,212,255,.12);
+    border-left:5px solid #00d4ff;
+    padding:15px;
+    border-radius:15px;
+    margin-bottom:15px;
+}
+
+/* AI BADGE */
+
+.ai-badge{
+    display:inline-block;
+    padding:12px 28px;
+    border-radius:999px;
+    font-weight:700;
+    font-size:18px;
+
+    background:linear-gradient(
+    135deg,
+    #00d4ff,
+    #2563eb);
+
+    color:white;
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-track{
+    background:#071120;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#00d4ff;
+    border-radius:20px;
+}
+
+</style>
+
+<div class="container-fluid p-4">
+
+    <!-- HERO -->
+
+    <div class="forecast-hero">
+
+        <div class="row align-items-center">
+
+            <div class="col-md-8">
+
+                <h1 class="forecast-title">
+                    Revenue Forecasting Intelligence
+                </h1>
+
+                <p class="forecast-subtitle">
+                    AI-powered revenue trend forecasting,
+                    growth projections,
+                    predictive analytics and executive insights.
+                </p>
+
+            </div>
+
+            <div class="col-md-4 text-end">
+
+                <i class="fas fa-chart-line"
+                   style="
+                   font-size:80px;
+                   color:#00d4ff;">
+                </i>
+
+            </div>
+
+        </div>
+
+    </div>
+   <div class="glass-card p-3 mb-4">
+
+    <div class="row text-center">
+
+        <div class="col-md-3">
+
+            <h6>🤖 AI Recommendation</h6>
+
+            <h3>
+
+                {% if recommendation == "STRONG BUY" %}
+                    🟢 STRONG BUY
+                {% elif recommendation == "BUY" %}
+                    🟢 BUY
+                {% elif recommendation == "HOLD" %}
+                    🟡 HOLD
+                {% else %}
+                    🔴 SELL
+                {% endif %}
+
+            </h3>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <h6>Confidence</h6>
+
+            <h3>{{ confidence }}%</h3>
+
+<div class="progress mt-3">
+
+    <div
+    class="progress-bar bg-success"
+    role="progressbar"
+    style="width:{{ confidence }}%">
+
+    </div>
+
+</div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <h6>Health Label</h6>
+
+            <h3>{{ health_label }}</h3>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <h6>Market Trend</h6>
+
+            <h3>{{ trend }}</h3>
+
+        </div>
+
+    </div>
+
+</div>
+
+    <!-- KPI ROW -->
+
+    <div class="row g-4">
+
+        <div class="col-md-3">
+
+            <div class="kpi-card">
+
+                <div class="kpi-title">
+                    🎯 Forecast Accuracy
+                </div>
+
+                <div class="kpi-value">
+                    {{ forecast_accuracy }}
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="kpi-card">
+
+                <div class="kpi-title">
+                    📈 Growth Prediction
+                </div>
+
+                <div class="kpi-value">
+                    {{ growth_prediction }}
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="kpi-card">
+
+                <div class="kpi-title">
+                    📊 Revenue Trend
+                </div>
+
+                <div class="kpi-value">
+                    {{ trend }}
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="kpi-card">
+
+                <div class="kpi-title">
+                    ⚠️ Risk Score
+                </div>
+
+                <div class="kpi-value">
+                    {{ risk_score }}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- FORECAST PANEL -->
+
+    <div class="forecast-panel">
+
+        <h3 class="section-heading">
+
+            Select Company
+
+        </h3>
+
+        <form method="GET">
+
+  <div class="row align-items-center g-3">
+
+    <div class="col-md-8">
+
+        <select
+        name="symbol"
+        class="form-select">
+
+    {% for symbol in symbols %}
+
+    <option
+    value="{{ symbol }}"
+    {% if selected_symbol == symbol %}
+    selected
+    {% endif %}>
+
+        {{ symbol }}
+
+    </option>
+
+    {% endfor %}
+
+</select>
+
+                </div>
+
+                <div class="col-md-4">
+
+    <button
+    type="submit"
+    class="forecast-btn w-100">
+
+                        Generate Forecast
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+        <div class="row mt-4">
+
+    <div class="col-md-9">
+
+        {% if forecast_chart %}
+
+        <div class="chart-container">
+
+            {{ forecast_chart|safe }}
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="glass-card p-4 h-100">
+
+            <div class="mb-3">
+
+    <span
+    style="
+    background:linear-gradient(135deg,#00d4ff,#4ade80);
+    color:white;
+    padding:10px 18px;
+    border-radius:50px;
+    font-weight:700;">
+
+        {{ selected_symbol }}
+
+    </span>
+
+</div>
+
+<h4>
+🤖 Executive Insights
+</h4>
+
+            <hr>
+
+            <p>
+                Revenue trend indicates
+                strong long-term growth.
+            </p>
+
+            <p>
+                Forecast model predicts
+                continued expansion over
+                the next 5 years.
+            </p>
+
+            <p>
+                Current business health
+                remains stable with
+                low operational risk.
+            </p>
+
+            <p>
+                Recommended for further
+                financial analysis.
+            </p>
+
+            <hr>
+
+<h5>Forecast Summary</h5>
+
+<p>📈 Expected Revenue Growth: +18.7%</p>
+
+<p>💰 Future Revenue Potential: High</p>
+
+<p>🛡 Risk Category: {{ risk_score }}</p>
+
+<p>🎯 Recommendation: {{ recommendation }}</p>
+
+        </div>
+
+    </div>
+
+</div>
+
+    </div>
+
+</div>
+
+{% endblock %}

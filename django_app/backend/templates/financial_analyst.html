@@ -1,0 +1,400 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+.analyst-hero{
+
+height:420px;
+
+background:
+linear-gradient(
+rgba(0,0,0,.65),
+rgba(0,0,0,.88)),
+url("https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1800&q=80");
+
+background-size:cover;
+background-position:center;
+
+border-radius:35px;
+
+overflow:hidden;
+
+position:relative;
+
+margin-bottom:35px;
+
+border:1px solid rgba(255,255,255,.15);
+
+box-shadow:
+0 0 60px rgba(245,158,11,.18);
+}
+
+.hero-overlay{
+
+position:absolute;
+
+inset:0;
+
+padding:70px;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+}
+
+.hero-overlay h1{
+
+font-size:4.2rem;
+
+font-weight:800;
+
+color:#fbbf24;
+
+text-shadow:
+0 0 35px rgba(251,191,36,.4);
+}
+
+.hero-overlay p{
+
+font-size:1.2rem;
+
+max-width:900px;
+}
+
+.glass-panel{
+
+background:
+rgba(255,255,255,.06);
+
+backdrop-filter:
+blur(25px);
+
+border:
+1px solid rgba(255,255,255,.12);
+
+border-radius:30px;
+
+padding:30px;
+
+margin-bottom:25px;
+}
+
+.section-title{
+
+font-size:1.7rem;
+
+font-weight:700;
+
+color:#fbbf24;
+
+margin-bottom:20px;
+}
+
+.generate-btn{
+
+background:
+linear-gradient(
+135deg,
+#fbbf24,
+#d97706);
+
+border:none;
+
+padding:14px 40px;
+
+border-radius:15px;
+
+font-weight:700;
+
+color:white;
+
+box-shadow:
+0 0 25px rgba(251,191,36,.25);
+}
+
+.kpi-card{
+
+height:180px;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+flex-direction:column;
+
+background:
+rgba(255,255,255,.05);
+
+border:
+1px solid rgba(255,255,255,.1);
+
+border-radius:25px;
+
+transition:.4s;
+}
+
+.kpi-card:hover{
+
+transform:translateY(-8px);
+
+box-shadow:
+0 0 35px rgba(251,191,36,.2);
+}
+
+.kpi-value{
+
+font-size:2.8rem;
+
+font-weight:800;
+
+color:#fbbf24;
+}
+
+.report-card{
+
+background:
+rgba(255,255,255,.05);
+
+border-left:
+5px solid #fbbf24;
+
+border-radius:20px;
+
+padding:25px;
+
+margin-bottom:20px;
+}
+
+.report-card h4{
+
+color:#fbbf24;
+
+margin-bottom:15px;
+}
+
+.grade-badge{
+
+background:
+linear-gradient(
+135deg,
+#fbbf24,
+#d97706);
+
+padding:10px 20px;
+
+border-radius:50px;
+
+font-weight:700;
+}
+
+</style>
+
+<div class="analyst-hero">
+
+<div class="hero-overlay">
+
+<h1>
+🧠 GPT Financial Analyst
+</h1>
+
+<p>
+Generate institutional-grade AI financial reports,
+investment intelligence, risk assessments and
+executive recommendations for NIFTY100 companies.
+</p>
+
+</div>
+
+</div>
+
+<div class="glass-panel">
+
+<h3 class="section-title">
+
+⚙ AI Report Configuration
+
+</h3>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<select
+name="symbol"
+class="form-select">
+
+{% for stock in stocks %}
+
+<option value="{{ stock.symbol }}">
+{{ stock.symbol }}
+</option>
+
+{% endfor %}
+
+</select>
+
+<br>
+
+<button class="generate-btn">
+
+🚀 Generate AI Report
+
+</button>
+
+</form>
+
+</div>
+
+{% if report %}
+
+<div class="row mb-4">
+
+<div class="col-md-3">
+
+<div class="kpi-card">
+
+<div>Investment Grade</div>
+
+<div class="kpi-value">
+
+A+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="kpi-card">
+
+<div>Confidence</div>
+
+<div class="kpi-value">
+
+95%
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="kpi-card">
+
+<div>Risk</div>
+
+<div class="kpi-value">
+
+LOW
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="kpi-card">
+
+<div>Recommendation</div>
+
+<div class="kpi-value">
+
+BUY
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="glass-panel">
+
+<div class="report-card">
+
+<h4>
+📊 Executive Summary
+</h4>
+
+<p>
+{{ report.summary }}
+</p>
+
+</div>
+
+<div class="report-card">
+
+<h4>
+💪 Financial Strengths
+</h4>
+
+<p>
+{{ report.strengths }}
+</p>
+
+</div>
+
+<div class="report-card">
+
+<h4>
+🚀 Growth Opportunities
+</h4>
+
+<p>
+{{ report.opportunities }}
+</p>
+
+</div>
+
+<div class="report-card">
+
+<h4>
+⚠ Risk Assessment
+</h4>
+
+<p>
+{{ report.risks }}
+</p>
+
+</div>
+
+<div class="report-card">
+
+<h4>
+🎯 AI Investment Recommendation
+</h4>
+
+<p>
+{{ report.recommendation }}
+</p>
+
+</div>
+
+<div class="text-center mt-4">
+
+<span class="grade-badge">
+
+🏆 AI Institutional Rating: A+
+
+</span>
+
+</div>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

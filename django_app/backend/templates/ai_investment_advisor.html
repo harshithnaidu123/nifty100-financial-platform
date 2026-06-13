@@ -1,0 +1,476 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+body{
+    background:linear-gradient(135deg,#081120,#111827,#0f172a);
+    color:white;
+}
+
+/* HERO */
+
+.ai-hero{
+    height:320px;
+    border-radius:25px;
+    background:url('https://images.unsplash.com/photo-1642790106117-e829e14a795f?auto=format&fit=crop&w=1600&q=80');
+    background-size:cover;
+    background-position:center;
+    position:relative;
+    overflow:hidden;
+    margin-bottom:30px;
+    border:2px solid rgba(255,255,255,.15);
+    box-shadow:0 0 40px rgba(0,245,255,.15);
+}
+
+.hero-overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.65);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:50px;
+}
+
+.hero-overlay h1{
+    font-size:3rem;
+    font-weight:800;
+    color:#00f5ff;
+    text-shadow:0 0 20px #00f5ff;
+}
+
+.hero-overlay p{
+    font-size:1.1rem;
+    max-width:800px;
+}
+
+/* GLASS CARDS */
+
+.glass-card{
+    background:rgba(255,255,255,.06);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:25px;
+    padding:30px;
+    margin-bottom:25px;
+    box-shadow:0 8px 32px rgba(0,0,0,.35);
+}
+
+/* TITLES */
+
+.section-title{
+    color:#00f5ff;
+    font-size:1.4rem;
+    font-weight:700;
+    margin-bottom:20px;
+    padding-bottom:10px;
+    border-bottom:2px solid rgba(0,245,255,.4);
+}
+
+/* INPUTS */
+
+.form-control,
+.form-select{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.2);
+    color:white;
+    border-radius:15px;
+    padding:12px;
+}
+
+.form-control:focus,
+.form-select:focus{
+    box-shadow:0 0 15px #00f5ff;
+    border-color:#00f5ff;
+}
+
+label{
+    margin-bottom:8px;
+    font-weight:600;
+}
+
+/* BUTTON */
+
+.ai-btn{
+    background:linear-gradient(135deg,#00f5ff,#0077ff);
+    border:none;
+    color:white;
+    font-weight:700;
+    padding:12px 35px;
+    border-radius:15px;
+    margin-top:25px;
+    box-shadow:0 0 25px rgba(0,245,255,.4);
+    transition:.3s;
+}
+
+.ai-btn:hover{
+    transform:translateY(-3px);
+}
+
+/* RECOMMENDATION */
+
+.recommend-card{
+    background:rgba(0,255,150,.08);
+    border:2px solid rgba(0,255,150,.3);
+    border-radius:25px;
+    padding:25px;
+}
+
+/* CONFIDENCE */
+
+.confidence-ring{
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    background:conic-gradient(
+    #00f5ff 0%,
+    #00f5ff 85%,
+    rgba(255,255,255,.1) 85%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:auto;
+    box-shadow:0 0 30px rgba(0,245,255,.4);
+}
+
+.confidence-ring h2{
+    color:white;
+}
+
+/* STRENGTH */
+
+.strength-card{
+    background:rgba(0,255,150,.08);
+    border-left:5px solid #00ff99;
+    border-radius:15px;
+    padding:20px;
+}
+
+/* RISK */
+
+.risk-card{
+    background:rgba(255,80,80,.08);
+    border-left:5px solid #ff5b5b;
+    border-radius:15px;
+    padding:20px;
+}
+
+/* EXPLANATION */
+
+.explain-card{
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:20px;
+    padding:25px;
+}
+
+</style>
+
+<div class="container-fluid mt-4">
+
+    <!-- HERO -->
+
+    <div class="ai-hero">
+
+        <div class="hero-overlay">
+
+            <h1>🤖 AI Investment Advisor</h1>
+
+            <p>
+                Advanced AI-powered stock recommendations,
+                confidence scoring, risk analysis,
+                growth forecasting and investment intelligence.
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- FORM -->
+
+    <div class="glass-card">
+
+        <h3 class="section-title">
+            ⚡ Generate Investment Advice
+        </h3>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="row">
+
+                <div class="col-md-4">
+
+                    <label>🏢 Company</label>
+
+                    <select name="symbol" class="form-control">
+
+                        {% for stock in stocks %}
+
+                        <option value="{{ stock.symbol }}">
+    {{ stock.symbol }}
+</option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <label>📊 Risk Appetite</label>
+
+                    <select name="risk" class="form-control">
+
+                        <option>Low</option>
+                        <option>Medium</option>
+                        <option>High</option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <label>⏳ Investment Horizon</label>
+
+                    <select name="horizon" class="form-control">
+
+                        <option>Short Term</option>
+                        <option>Medium Term</option>
+                        <option>Long Term</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <button class="ai-btn">
+                🚀 Generate AI Recommendation
+            </button>
+
+        </form>
+
+    </div>
+
+    {% if result %}
+
+    <div class="row mb-4">
+
+    <div class="col-md-3">
+
+        <div class="glass-card text-center">
+
+            <h6>🤖 AI Score</h6>
+
+            <h2>
+                {{ result.confidence }}
+            </h2>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="glass-card text-center">
+
+            <h6>💚 Health Label</h6>
+
+            <h2>
+                Healthy
+            </h2>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="glass-card text-center">
+
+            <h6>⚠ Risk Level</h6>
+
+            <h2>
+                Medium
+            </h2>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="glass-card text-center">
+
+            <h6>🏆 Grade</h6>
+
+            <h2>
+                A
+            </h2>
+
+        </div>
+
+    </div>
+
+</div>
+
+    <!-- RECOMMENDATION -->
+
+    <div class="recommend-card mb-4">
+
+        <h2>
+            🎯 Recommendation:
+            {{ result.action }}
+        </h2>
+
+    </div>
+
+    <div class="row">
+
+        <!-- CONFIDENCE -->
+
+        <div class="col-md-4">
+
+            <div class="glass-card text-center">
+
+                <h3 class="section-title">
+                    📈 Confidence Score
+                </h3>
+
+                <div class="confidence-ring">
+
+                    <h2>
+                        {{ result.confidence }}%
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- STRENGTHS -->
+
+        <div class="col-md-4">
+
+            <div class="strength-card">
+
+                <h3>
+                    ✅ Strengths
+                </h3>
+
+                <ul>
+
+                    {% for s in result.strengths %}
+
+                    <li>{{ s }}</li>
+
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <!-- RISKS -->
+
+        <div class="col-md-4">
+
+            <div class="risk-card">
+
+                <h3>
+                    ⚠ Risks
+                </h3>
+
+                <ul>
+
+                    {% for r in result.risks %}
+
+                    <li>{{ r }}</li>
+
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- AI EXPLANATION -->
+
+    <div class="glass-card">
+
+        <h3 class="section-title">
+            🧠 AI Explanation
+        </h3>
+
+        <div class="explain-card">
+
+            <p>
+                {{ result.explanation }}
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- FUTURE GROWTH -->
+
+    <div class="glass-card">
+
+        <h3 class="section-title">
+            🚀 Future Growth Outlook
+        </h3>
+
+        <p>
+            AI forecasts future performance based on
+            revenue trends, profitability metrics,
+            sector momentum and market conditions.
+        </p>
+
+    </div>
+
+    <!-- ANALYST CONSENSUS -->
+
+    <div class="glass-card">
+
+        <h3 class="section-title">
+            👨‍💼 Analyst Consensus
+        </h3>
+
+        <p>
+            Combined AI and analyst sentiment
+            for enhanced decision-making.
+        </p>
+
+    </div>
+
+    <!-- INVESTMENT SUMMARY -->
+
+    <div class="glass-card">
+
+        <h3 class="section-title">
+            📋 Investment Summary
+        </h3>
+
+        <p>
+            {{ result.action }} recommendation with
+            {{ result.confidence }}% confidence score.
+        </p>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

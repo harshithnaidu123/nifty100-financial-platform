@@ -1,0 +1,376 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+.rank-hero{
+
+height:350px;
+
+background:
+linear-gradient(
+rgba(0,0,0,.65),
+rgba(0,0,0,.80)),
+url("https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1600&q=80");
+
+background-size:cover;
+background-position:center;
+
+border-radius:35px;
+
+position:relative;
+
+overflow:hidden;
+
+margin-bottom:35px;
+
+border:1px solid rgba(255,255,255,.15);
+
+box-shadow:
+0 0 50px rgba(255,215,0,.15);
+}
+
+.rank-overlay{
+
+position:absolute;
+
+inset:0;
+
+padding:60px;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+}
+
+.rank-overlay h1{
+
+font-size:4rem;
+
+font-weight:800;
+
+color:#ffd700;
+
+text-shadow:
+0 0 25px rgba(255,215,0,.4);
+}
+
+.rank-overlay p{
+
+font-size:1.2rem;
+
+max-width:800px;
+}
+
+.glass-panel{
+
+background:
+rgba(255,255,255,.06);
+
+backdrop-filter:
+blur(25px);
+
+border:
+1px solid rgba(255,255,255,.12);
+
+border-radius:30px;
+
+padding:30px;
+
+margin-bottom:25px;
+}
+
+.kpi-card{
+
+height:180px;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
+
+background:
+rgba(255,255,255,.05);
+
+border:
+1px solid rgba(255,255,255,.1);
+
+border-radius:25px;
+
+transition:.4s;
+}
+
+.kpi-card:hover{
+
+transform:translateY(-10px);
+
+box-shadow:
+0 0 35px rgba(255,215,0,.25);
+}
+
+.kpi-value{
+
+font-size:3rem;
+
+font-weight:800;
+
+color:#ffd700;
+}
+
+.rank-card{
+
+background:
+rgba(255,255,255,.05);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+border-radius:25px;
+
+padding:25px;
+
+margin-bottom:15px;
+
+transition:.4s;
+}
+
+.rank-card:hover{
+
+transform:translateY(-5px);
+
+box-shadow:
+0 0 30px rgba(255,215,0,.15);
+}
+
+.rank-number{
+
+font-size:2.5rem;
+
+font-weight:800;
+
+color:#ffd700;
+}
+
+.gold{
+color:#ffd700;
+}
+
+.silver{
+color:#d1d5db;
+}
+
+.bronze{
+color:#d97706;
+}
+
+.health-badge{
+
+padding:8px 15px;
+
+border-radius:50px;
+
+font-size:13px;
+
+font-weight:700;
+
+background:
+rgba(74,222,128,.15);
+
+color:#4ade80;
+}
+
+</style>
+
+<div class="rank-hero">
+
+<div class="rank-overlay">
+
+<h1>
+🏆 AI Stock Ranking Engine
+</h1>
+
+<p>
+Advanced AI ranking system that evaluates NIFTY100 companies
+using machine learning scores, financial health, growth strength,
+risk profile and investment intelligence.
+</p>
+
+</div>
+
+</div>
+
+<div class="row mb-4">
+
+<div class="col-md-3">
+
+<div class="kpi-card">
+
+<div>Total Ranked</div>
+
+<div class="kpi-value">
+
+{{ stocks|length }}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="kpi-card">
+
+<div>Top Grade</div>
+
+<div class="kpi-value">
+
+A+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="kpi-card">
+
+<div>AI Coverage</div>
+
+<div class="kpi-value">
+
+100%
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="kpi-card">
+
+<div>Confidence</div>
+
+<div class="kpi-value">
+
+96%
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="glass-panel">
+
+<h3 class="mb-4">
+🏆 Top Ranked NIFTY100 Stocks
+</h3>
+
+{% for stock in stocks %}
+
+<div class="rank-card">
+
+<div class="row align-items-center">
+
+<div class="col-md-2">
+
+<div class="rank-number">
+
+{% if forloop.counter == 1 %}
+🥇
+{% elif forloop.counter == 2 %}
+🥈
+{% elif forloop.counter == 3 %}
+🥉
+{% endif %}
+
+#{{ forloop.counter }}
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<h4>
+
+{{ stock.symbol }}
+
+</h4>
+
+</div>
+
+<div class="col-md-2">
+
+<strong>
+AI Score
+</strong>
+
+<br>
+
+{{ stock.overall_score }}
+
+</div>
+
+<div class="col-md-2">
+
+<span class="health-badge">
+
+{{ stock.health_label }}
+
+</span>
+
+</div>
+
+<div class="col-md-3">
+
+{% if stock.overall_score >= 80 %}
+
+<span class="badge bg-success">
+STRONG BUY
+</span>
+
+{% elif stock.overall_score >= 60 %}
+
+<span class="badge bg-primary">
+BUY
+</span>
+
+{% elif stock.overall_score >= 40 %}
+
+<span class="badge bg-warning text-dark">
+HOLD
+</span>
+
+{% else %}
+
+<span class="badge bg-danger">
+SELL
+</span>
+
+{% endif %}
+
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

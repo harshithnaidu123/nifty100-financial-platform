@@ -1,0 +1,410 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+.optimizer-hero{
+
+height:380px;
+
+border-radius:35px;
+
+overflow:hidden;
+
+position:relative;
+
+background:
+linear-gradient(
+rgba(0,0,0,.65),
+rgba(0,0,0,.82)),
+url("https://images.unsplash.com/photo-1559526324-593bc073d938?auto=format&fit=crop&w=1800&q=80");
+
+background-size:cover;
+background-position:center;
+
+margin-bottom:35px;
+
+border:1px solid rgba(255,255,255,.15);
+
+box-shadow:
+0 0 60px rgba(74,222,128,.18);
+}
+
+.hero-overlay{
+
+position:absolute;
+
+inset:0;
+
+padding:60px;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+}
+
+.hero-overlay h1{
+
+font-size:4rem;
+
+font-weight:800;
+
+color:#4ade80;
+
+text-shadow:
+0 0 30px rgba(74,222,128,.35);
+}
+
+.hero-overlay p{
+
+font-size:1.15rem;
+
+max-width:800px;
+}
+
+.glass-panel{
+
+background:
+rgba(255,255,255,.06);
+
+backdrop-filter:
+blur(25px);
+
+border:
+1px solid rgba(255,255,255,.12);
+
+border-radius:30px;
+
+padding:30px;
+
+margin-bottom:25px;
+}
+
+.section-title{
+
+font-size:1.6rem;
+
+font-weight:700;
+
+color:#4ade80;
+
+margin-bottom:20px;
+}
+
+.optimize-btn{
+
+background:
+linear-gradient(
+135deg,
+#4ade80,
+#16a34a);
+
+border:none;
+
+padding:14px 40px;
+
+border-radius:15px;
+
+font-weight:700;
+
+color:white;
+
+box-shadow:
+0 0 25px rgba(74,222,128,.3);
+}
+
+.kpi-card{
+
+height:180px;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
+
+background:
+rgba(255,255,255,.05);
+
+border:
+1px solid rgba(255,255,255,.1);
+
+border-radius:25px;
+
+transition:.4s;
+}
+
+.kpi-card:hover{
+
+transform:translateY(-8px);
+
+box-shadow:
+0 0 35px rgba(74,222,128,.2);
+}
+
+.kpi-value{
+
+font-size:3rem;
+
+font-weight:800;
+
+color:#4ade80;
+}
+
+.portfolio-card{
+
+background:
+rgba(255,255,255,.05);
+
+border:
+1px solid rgba(255,255,255,.08);
+
+border-left:
+5px solid #4ade80;
+
+border-radius:20px;
+
+padding:20px;
+
+margin-bottom:15px;
+}
+
+.weight-badge{
+
+background:
+linear-gradient(
+135deg,
+#4ade80,
+#16a34a);
+
+padding:8px 16px;
+
+border-radius:50px;
+
+font-weight:700;
+}
+
+.summary-box{
+
+background:
+rgba(255,255,255,.05);
+
+padding:25px;
+
+border-radius:20px;
+}
+
+</style>
+
+<div class="optimizer-hero">
+
+<div class="hero-overlay">
+
+<h1>
+📈 AI Portfolio Optimizer
+</h1>
+
+<p>
+Build institution-grade portfolios using
+AI allocation models, diversification analysis,
+risk balancing and return optimization.
+</p>
+
+</div>
+
+</div>
+
+<div class="glass-panel">
+
+<h3 class="section-title">
+
+⚙ Portfolio Configuration
+
+</h3>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<div class="row">
+
+<div class="col-md-6">
+
+<label>
+Investment Amount (₹)
+</label>
+
+<input
+type="number"
+name="amount"
+class="form-control"
+placeholder="100000">
+
+</div>
+
+<div class="col-md-6">
+
+<label>
+Risk Profile
+</label>
+
+<select
+name="risk"
+class="form-select">
+
+<option>Low</option>
+<option>Medium</option>
+<option>High</option>
+
+</select>
+
+</div>
+
+</div>
+
+<br>
+
+<button class="optimize-btn">
+
+🚀 Generate AI Portfolio
+
+</button>
+
+</form>
+
+</div>
+
+{% if portfolio %}
+
+<div class="row mb-4">
+
+<div class="col-md-3">
+
+<div class="kpi-card">
+
+<div>Expected Return</div>
+
+<div class="kpi-value">
+18%
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="kpi-card">
+
+<div>Risk Score</div>
+
+<div class="kpi-value">
+12
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="kpi-card">
+
+<div>Diversification</div>
+
+<div class="kpi-value">
+95%
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="kpi-card">
+
+<div>AI Confidence</div>
+
+<div class="kpi-value">
+96%
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="glass-panel">
+
+<h3 class="section-title">
+
+🏆 Optimized Portfolio Allocation
+
+</h3>
+
+{% for stock, weight in portfolio %}
+
+<div class="portfolio-card">
+
+<div class="row align-items-center">
+
+<div class="col-md-6">
+
+<h4>
+
+{{ stock }}
+
+</h4>
+
+</div>
+
+<div class="col-md-6 text-end">
+
+<span class="weight-badge">
+
+{{ weight }}%
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+<div class="glass-panel">
+
+<h3 class="section-title">
+
+🤖 AI Portfolio Summary
+
+</h3>
+
+<div class="summary-box">
+
+This portfolio has been optimized for
+risk-adjusted returns, sector diversification,
+capital preservation and long-term growth.
+
+The allocation balances technology,
+banking and diversified blue-chip exposure
+to maximize performance while controlling risk.
+
+</div>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

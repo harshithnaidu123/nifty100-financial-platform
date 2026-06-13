@@ -1,0 +1,504 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+body{
+    background:
+    linear-gradient(rgba(5,15,35,.88),rgba(5,15,35,.92)),
+    url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3');
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+}
+
+.glass-card{
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:25px;
+    box-shadow:0 8px 35px rgba(0,0,0,.35);
+}
+
+.hero{
+    padding:45px;
+    margin-bottom:30px;
+}
+
+.hero-title{
+    font-size:68px;
+    font-weight:900;
+    line-height:1.1;
+    background:linear-gradient(90deg,#ffffff,#7dd3fc,#4ade80);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.hero-sub{
+    font-size:20px;
+    color:#cbd5e1;
+}
+
+.kpi-card{
+    padding:25px;
+    height:100%;
+    transition:.3s;
+}
+
+.kpi-card:hover{
+    transform:translateY(-6px);
+}
+
+.kpi-title{
+    color:#9fb3d4;
+    font-size:15px;
+}
+
+.kpi-value{
+    color:white;
+    font-size:34px;
+    font-weight:800;
+}
+
+.deep-btn{
+    background:linear-gradient(135deg,#00d4ff,#2563eb);
+    border:none;
+    border-radius:15px;
+    color:white;
+    font-weight:700;
+    padding:15px;
+    width:100%;
+}
+
+.form-select{
+    background:rgba(255,255,255,.08);
+    color:white;
+    border:1px solid rgba(255,255,255,.2);
+    border-radius:15px;
+    padding:15px;
+}
+
+.form-select option{
+    color:black;
+}
+
+.section-title{
+    color:white;
+    font-size:28px;
+    font-weight:800;
+    margin-bottom:20px;
+}
+
+.buy-badge{
+    background:linear-gradient(135deg,#22c55e,#16a34a);
+    padding:10px 20px;
+    border-radius:40px;
+    color:white;
+    font-weight:700;
+}
+
+.hold-badge{
+    background:linear-gradient(135deg,#f59e0b,#d97706);
+    padding:10px 20px;
+    border-radius:40px;
+    color:white;
+    font-weight:700;
+}
+
+.sell-badge{
+    background:linear-gradient(135deg,#ef4444,#dc2626);
+    padding:10px 20px;
+    border-radius:40px;
+    color:white;
+    font-weight:700;
+}
+
+.risk-bar{
+    height:18px;
+    border-radius:50px;
+    overflow:hidden;
+    background:#1e293b;
+}
+
+.risk-fill{
+    height:100%;
+    width:75%;
+    background:linear-gradient(
+    90deg,
+    #22c55e,
+    #f59e0b,
+    #ef4444
+    );
+}
+
+.table{
+    color:white;
+}
+
+.insight{
+    background:rgba(0,212,255,.10);
+    border-left:4px solid #00d4ff;
+    border-radius:15px;
+    padding:15px;
+    margin-bottom:15px;
+}
+
+</style>
+
+<div class="container-fluid p-4">
+
+<div class="glass-card hero">
+
+<div class="row align-items-center">
+
+<div class="col-lg-8">
+
+<h1 class="hero-title">
+Company Deep Dive
+</h1>
+
+<p class="hero-sub">
+AI Powered Financial Intelligence,
+Risk Evaluation,
+Growth Analysis and Investment Signals.
+</p>
+
+</div>
+
+<div class="col-lg-4 text-end">
+
+<i class="fas fa-building"
+style="font-size:110px;color:#38bdf8;"> </i>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="glass-card p-4 mb-4">
+
+<form method="GET">
+
+<div class="row g-3">
+
+<div class="col-lg-9">
+
+<select
+name="symbol"
+class="form-select">
+
+{% for item in companies %}
+
+<option
+value="{{ item.symbol }}">
+
+{{ item.symbol }}
+
+</option>
+
+{% endfor %}
+
+</select>
+
+</div>
+
+<div class="col-lg-3">
+
+<button
+type="submit"
+class="deep-btn">
+
+🔍 Analyze Company
+
+</button>
+
+</div>
+
+</div>
+
+</form>
+
+</div>
+
+{% if company %}
+
+<div class="row g-4 mb-4">
+
+<div class="col-lg-3">
+
+<div class="glass-card kpi-card">
+
+<div class="kpi-title">
+🏆 Overall Score
+</div>
+
+<div class="kpi-value">
+{{ company.overall_score }}
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-3">
+
+<div class="glass-card kpi-card">
+
+<div class="kpi-title">
+💚 Health Score
+</div>
+
+<div class="kpi-value">
+{{ company.health_label }}
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-3">
+
+<div class="glass-card kpi-card">
+
+<div class="kpi-title">
+🤖 AI Recommendation
+</div>
+
+<br>
+
+{% if company.overall_score >= 80 %} <span class="buy-badge">BUY</span>
+{% elif company.overall_score >= 50 %} <span class="hold-badge">HOLD</span>
+{% else %} <span class="sell-badge">SELL</span>
+{% endif %}
+
+</div>
+
+</div>
+
+<div class="col-lg-3">
+
+<div class="glass-card kpi-card">
+
+<div class="kpi-title">
+⚠ Risk Level
+</div>
+
+<div class="kpi-value">
+{{ risk_score }}
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="row g-4">
+
+<div class="col-lg-8">
+
+<div class="glass-card p-4 mb-4">
+
+<h3 class="section-title">
+📡 AI Radar Analysis
+</h3>
+
+{{ radar_chart|safe }}
+
+</div>
+
+<div class="glass-card p-4">
+
+<h3 class="section-title">
+📈 Revenue Trend Analysis
+</h3>
+
+{{ revenue_chart|safe }}
+
+</div>
+
+<div class="glass-card p-4 mt-4">
+
+<h3 class="section-title">
+🏦 Balance Sheet Composition
+</h3>
+
+{{ balance_sheet_chart|safe }}
+
+</div>
+
+<div class="glass-card p-4 mt-4">
+
+<h3 class="section-title">
+💰 Cash Flow Analysis
+</h3>
+
+{{ cash_flow_chart|safe }}
+
+</div>
+
+<div class="glass-card p-4 mt-4">
+
+<h3 class="section-title">
+⚖️ Debt vs Equity
+</h3>
+
+{{ debt_equity_chart|safe }}
+
+</div>
+
+<div class="glass-card p-4 mt-4">
+
+<h3 class="section-title">
+🎯 Health Score Gauge
+</h3>
+
+{{ health_gauge|safe }}
+
+<div class="row mt-4">
+
+<div class="col-md-6">
+
+<div class="glass-card p-4">
+
+<h3 class="section-title">
+✅ AI Strengths
+</h3>
+
+<ul>
+
+{% for item in pros %}
+
+<li>{{ item }}</li>
+
+{% endfor %}
+
+</ul>
+
+</div>
+
+</div>
+
+<div class="col-md-6">
+
+<div class="glass-card p-4">
+
+<h3 class="section-title">
+⚠️ AI Risks
+</h3>
+
+<ul>
+
+{% for item in cons %}
+
+<li>{{ item }}</li>
+
+{% endfor %}
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="glass-card p-4 mb-4">
+
+<h3 class="section-title">
+🎯 Risk Meter
+</h3>
+
+<div class="risk-bar">
+
+<div class="risk-fill"></div>
+
+</div>
+
+<br>
+
+<p>
+Current Risk Assessment:
+<strong>{{ risk_score }}</strong>
+</p>
+
+</div>
+
+<div class="glass-card p-4 mb-4">
+
+<h3 class="section-title">
+🤖 Executive Insights
+</h3>
+
+<div class="insight">
+Strong financial stability detected.
+</div>
+
+<div class="insight">
+Positive long-term growth outlook.
+</div>
+
+<div class="insight">
+AI recommends continuous monitoring.
+</div>
+
+<div class="insight">
+Sector positioning remains competitive.
+</div>
+
+</div>
+
+<div class="glass-card p-4">
+
+<h3 class="section-title">
+🏆 Peer Comparison
+</h3>
+
+<table class="table">
+
+<thead>
+
+<tr>
+<th>Company</th>
+<th>Score</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for peer in peer_companies %}
+
+<tr>
+
+<td>{{ peer.symbol }}</td>
+
+<td>{{ peer.overall_score }}</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+{% endif %}
+
+</div>
+
+{% endblock %}

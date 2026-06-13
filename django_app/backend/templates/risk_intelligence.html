@@ -1,0 +1,351 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+
+.risk-hero{
+
+height:320px;
+
+border-radius:30px;
+
+overflow:hidden;
+
+position:relative;
+
+background:
+linear-gradient(
+rgba(0,0,0,.65),
+rgba(0,0,0,.75)),
+url("https://images.unsplash.com/photo-1559526324-593bc073d938?auto=format&fit=crop&w=1600&q=80");
+
+background-size:cover;
+background-position:center;
+
+border:1px solid rgba(255,255,255,.15);
+
+box-shadow:
+0 0 60px rgba(255,80,80,.15);
+
+margin-bottom:30px;
+}
+
+.risk-content{
+
+position:absolute;
+
+top:50%;
+left:60px;
+
+transform:translateY(-50%);
+}
+
+.risk-content h1{
+
+font-size:3.4rem;
+
+font-weight:800;
+
+color:#ff6b6b;
+
+text-shadow:
+0 0 25px rgba(255,107,107,.5);
+}
+
+.risk-content p{
+
+font-size:1.1rem;
+
+max-width:700px;
+}
+
+.glass-panel{
+
+background:
+rgba(255,255,255,.06);
+
+backdrop-filter:
+blur(20px);
+
+border:
+1px solid rgba(255,255,255,.12);
+
+border-radius:25px;
+
+padding:30px;
+
+margin-bottom:25px;
+}
+
+.section-title{
+
+font-size:1.6rem;
+
+font-weight:700;
+
+margin-bottom:20px;
+
+color:#ff6b6b;
+}
+
+.risk-btn{
+
+background:
+linear-gradient(
+135deg,
+#ff5b5b,
+#ff2e63);
+
+border:none;
+
+padding:12px 35px;
+
+border-radius:15px;
+
+font-weight:700;
+
+color:white;
+
+margin-top:20px;
+}
+
+.kpi-card{
+
+height:180px;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
+
+text-align:center;
+
+background:
+rgba(255,255,255,.05);
+
+border:
+1px solid rgba(255,255,255,.1);
+
+border-radius:25px;
+
+transition:.3s;
+}
+
+.kpi-card:hover{
+
+transform:translateY(-8px);
+
+box-shadow:
+0 0 35px rgba(255,107,107,.25);
+}
+
+.kpi-value{
+
+font-size:3rem;
+
+font-weight:800;
+
+color:#ff6b6b;
+}
+
+.risk-meter{
+
+height:25px;
+
+border-radius:50px;
+
+overflow:hidden;
+
+background:
+rgba(255,255,255,.08);
+}
+
+.risk-fill{
+
+height:100%;
+
+width:{{ result.score }}%;
+
+background:
+linear-gradient(
+90deg,
+#4ade80,
+#facc15,
+#ef4444);
+}
+
+.summary-box{
+
+background:
+rgba(255,255,255,.05);
+
+border-radius:20px;
+
+padding:25px;
+}
+
+</style>
+
+<div class="risk-hero">
+
+<div class="risk-content">
+
+<h1>
+🚨 AI Risk Intelligence
+</h1>
+
+<p>
+Enterprise-grade AI risk monitoring for
+financial strength, market exposure,
+growth sustainability and investment protection.
+</p>
+
+</div>
+
+</div>
+
+<div class="glass-panel">
+
+<h3 class="section-title">
+
+🏢 Select Company
+
+</h3>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<select
+name="symbol"
+class="form-select">
+
+{% for company in companies %}
+
+<option value="{{ company.symbol }}">
+{{ company.symbol }}
+</option>
+
+{% endfor %}
+
+</select>
+
+<button class="risk-btn">
+
+🚨 Analyze Risk
+
+</button>
+
+</form>
+
+</div>
+
+{% if result %}
+
+<div class="row g-4">
+
+<div class="col-lg-3">
+
+<div class="kpi-card">
+
+<div>Risk Score</div>
+
+<div class="kpi-value">
+
+{{ result.score }}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-3">
+
+<div class="kpi-card">
+
+<div>Debt Risk</div>
+
+<div class="kpi-value">
+
+{{ result.debt }}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-3">
+
+<div class="kpi-card">
+
+<div>Growth Risk</div>
+
+<div class="kpi-value">
+
+{{ result.growth }}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-3">
+
+<div class="kpi-card">
+
+<div>Market Risk</div>
+
+<div class="kpi-value">
+
+{{ result.market }}
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="glass-panel mt-4">
+
+<h3 class="section-title">
+
+📊 AI Risk Meter
+
+</h3>
+
+<div class="risk-meter">
+
+<div class="risk-fill"></div>
+
+</div>
+
+</div>
+
+<div class="glass-panel">
+
+<h3 class="section-title">
+
+🤖 Executive Recommendation
+
+</h3>
+
+<div class="summary-box">
+
+{{ result.recommendation }}
+
+</div>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

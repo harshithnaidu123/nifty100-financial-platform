@@ -1,0 +1,290 @@
+<nav class="navbar">
+
+    <div class="logo-section">
+
+        <div class="logo-icon">
+            🚀
+        </div>
+
+        <div class="logo-text">
+            Nifty100 AI Intelligence
+        </div>
+
+    </div>
+
+    <ul>
+
+        <li>
+            <a href="/">
+                🏠 Home
+            </a>
+        </li>
+
+        <li>
+            <a href="/api/companies/">
+                📊 Companies
+            </a>
+        </li>
+
+        <li>
+            <a href="/api/compare/">
+                ⚖ Compare
+            </a>
+        </li>
+
+        <li>
+            <a href="/api/screener/">
+                🔍 Screener
+            </a>
+        </li>
+
+        <li>
+            <a href="/api/sector-dashboard/">
+                📈 Sector Dashboard
+            </a>
+        </li>
+
+        <form action="/api/search/" method="GET" class="search-form">
+
+<input
+type="text"
+name="symbol"
+placeholder="Search Company..."
+required>
+
+<button type="submit">
+🔍
+</button>
+
+</form>
+
+    </ul>
+
+</nav>
+
+<style>
+
+.navbar{
+
+position:sticky;
+top:15px;
+z-index:9999;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+margin:20px;
+
+padding:20px 35px;
+
+background:
+linear-gradient(
+135deg,
+rgba(0,229,255,.12),
+rgba(0,255,149,.12)
+);
+
+backdrop-filter:blur(30px);
+-webkit-backdrop-filter:blur(30px);
+
+border:1px solid rgba(255,255,255,.10);
+
+border-radius:25px;
+
+box-shadow:
+0 15px 50px rgba(0,0,0,.35);
+}
+
+.logo-section{
+
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.logo-icon{
+
+width:60px;
+height:60px;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+font-size:28px;
+
+border-radius:50%;
+
+background:
+linear-gradient(
+135deg,
+#00e5ff,
+#00ff95
+);
+
+box-shadow:
+0 0 30px rgba(0,255,149,.40);
+}
+
+.logo-text{
+
+font-size:28px;
+font-weight:800;
+
+background:
+linear-gradient(
+90deg,
+#00e5ff,
+#00ff95
+);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.navbar ul{
+
+display:flex;
+align-items:center;
+gap:18px;
+
+list-style:none;
+}
+
+.navbar li{
+
+transition:.3s;
+}
+
+.navbar a{
+
+display:block;
+
+padding:12px 20px;
+
+border-radius:14px;
+
+text-decoration:none;
+
+font-size:15px;
+font-weight:600;
+
+color:white;
+
+transition:.3s;
+}
+
+.navbar a:hover{
+
+background:
+linear-gradient(
+135deg,
+rgba(0,229,255,.18),
+rgba(0,255,149,.18)
+);
+
+transform:translateY(-4px);
+
+box-shadow:
+0 10px 25px rgba(0,255,149,.18);
+
+color:#ffffff;
+}
+
+/* ACTIVE FEEL */
+
+.navbar a:active{
+
+transform:scale(.96);
+}
+
+/* MOBILE */
+
+@media(max-width:1200px){
+
+.navbar{
+
+flex-direction:column;
+
+gap:20px;
+}
+
+.navbar ul{
+
+flex-wrap:wrap;
+
+justify-content:center;
+}
+}
+
+.navbar a:active{
+
+transform:scale(.96);
+}
+
+/* PASTE HERE */
+
+.search-form{
+
+display:flex;
+gap:10px;
+align-items:center;
+}
+
+.search-form input{
+
+padding:10px 15px;
+
+border:none;
+
+border-radius:12px;
+
+background:rgba(255,255,255,.08);
+
+color:white;
+
+width:180px;
+}
+
+.search-form button{
+
+padding:10px 15px;
+
+border:none;
+
+border-radius:12px;
+
+background:
+linear-gradient(
+135deg,
+#00e5ff,
+#00ff95
+);
+
+cursor:pointer;
+}
+
+/* MOBILE */
+
+@media(max-width:1200px){
+
+.navbar{
+
+flex-direction:column;
+
+@media(max-width:768px){
+
+.logo-text{
+
+font-size:22px;
+}
+
+.navbar a{
+
+padding:10px 14px;
+font-size:13px;
+}
+}
+
+</style>
