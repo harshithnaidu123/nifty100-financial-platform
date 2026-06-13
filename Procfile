@@ -1,0 +1,1 @@
+web: cd django_app/backend && gunicorn bluestock.wsgi --bind 0.0.0.0:$PORT
