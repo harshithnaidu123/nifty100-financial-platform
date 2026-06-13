@@ -63,10 +63,14 @@ WSGI_APPLICATION = 'bluestock.wsgi.application'
 import dj_database_url
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL', default=f"postgresql://{config('DB_USER')}:{config('DB_PASSWORD')}@{config('DB_HOST')}:{config('DB_PORT')}/{config('DB_NAME')}"),
-        conn_max_age=600
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('PGDATABASE', default=config('DB_NAME', default='railway')),
+        'USER': config('PGUSER', default=config('DB_USER', default='postgres')),
+        'PASSWORD': config('PGPASSWORD', default=config('DB_PASSWORD', default='')),
+        'HOST': config('PGHOST', default=config('DB_HOST', default='localhost')),
+        'PORT': config('PGPORT', default=config('DB_PORT', default='5432')),
+    }
 }
 
 AUTH_PASSWORD_VALIDATORS = [
