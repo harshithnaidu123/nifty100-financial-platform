@@ -38,7 +38,6 @@ htmlcov/
 .pytest_cache/
 
 # Static
-staticfiles/
 
 # SQL
 sql/
